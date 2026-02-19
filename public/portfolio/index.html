@@ -16,13 +16,12 @@
         luke-alexander.uk
       </a>
       <button
-        class="theme-toggle"
-        id="theme-toggle"
+        class="settings-btn"
+        id="settings-btn"
         type="button"
-        aria-label="Toggle dark mode"
-      >
-        Dark Mode
-      </button>
+        aria-label="Open settings"
+        onclick="openSettings('settings-window')"
+      >&#9881;</button>
     </div>
   </header>
 
@@ -35,13 +34,24 @@
       <p class="hero-description">
         17-year-old student at Down High School studying Computer Science, Physics, and Technology &amp; Design at A-level. I build home servers, create mathematical animations, make jam, and design games. This is a collection of my projects.
       </p>
-      <div class="hero-contact">
-        <a href="mailto:lukeaustenalexander@gmail.com" aria-label="Send email">
-          Email
-        </a>
-        <a href="https://luke-alexander.uk/" aria-label="Visit main desktop site">
-          Desktop Site
-        </a>
+    </section>
+
+    <!-- ===== Contact Details ===== -->
+    <section class="contact-section" aria-label="Contact details">
+      <h2 class="section-heading">Contact</h2>
+      <div class="contact-card">
+        <p class="contact-item">
+          <span class="contact-label">Email</span>
+          <a href="mailto:lukeaustenalexander@gmail.com">lukeaustenalexander@gmail.com</a>
+        </p>
+        <p class="contact-item">
+          <span class="contact-label">Phone</span>
+          <span>07395197393</span>
+        </p>
+        <p class="contact-item">
+          <span class="contact-label">Website</span>
+          <a href="https://luke-alexander.uk/">luke-alexander.uk</a>
+        </p>
       </div>
     </section>
 
@@ -54,6 +64,31 @@
     </div>
   </main>
 
+  <!-- ===== Settings Window (same style as project pages) ===== -->
+  <div class="window" id="settings-window">
+    <div class="window-header">
+      <span>Settings</span>
+      <div>
+        <button class="close-btn" onclick="openSettings('settings-window')">X</button>
+      </div>
+    </div>
+    <div class="window-content">
+      <label class="settings-text" style="display: flex; align-items: center; gap: 0.5rem;">
+        <input type="checkbox" id="theme-toggle" />
+        Dark Mode
+      </label>
+      <div class="settings-row" style="margin-top: 0.75rem;">
+        <label class="settings-text" for="fontSize-select">Font Size</label>
+        <select id="fontSize-select" class="settings-select">
+          <option value="default">Default</option>
+          <option value="small">Small</option>
+          <option value="large">Large</option>
+          <option value="huge">Huge</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
   <!-- ===== Footer ===== -->
   <footer class="footer" role="contentinfo">
     <p>Luke Alexander &mdash; <span id="footer-year"></span></p>
@@ -61,21 +96,61 @@
 
   <!-- ===== Script: load JSON + dark mode ===== -->
   <script>
+    /* ---------- Settings panel ---------- */
+    function openSettings(id) {
+      var win = document.getElementById(id);
+      var isVisible = win.style.display === 'block';
+      win.style.display = isVisible ? 'none' : 'block';
+    }
+
+    /* Close settings on Escape */
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') {
+        var win = document.getElementById('settings-window');
+        if (win.style.display === 'block') {
+          win.style.display = 'none';
+        }
+      }
+    });
+
     (function () {
-      /* ---------- Dark mode ---------- */
+      /* ---------- Dark mode (checkbox) ---------- */
       var toggle = document.getElementById('theme-toggle');
       var storedTheme = localStorage.getItem('portfolio-theme');
 
       if (storedTheme === 'dark') {
         document.body.classList.add('dark-mode');
-        toggle.textContent = 'Light Mode';
+        toggle.checked = true;
       }
 
-      toggle.addEventListener('click', function () {
-        var isDark = document.body.classList.toggle('dark-mode');
-        toggle.textContent = isDark ? 'Light Mode' : 'Dark Mode';
+      toggle.addEventListener('change', function () {
+        var isDark = this.checked;
+        document.body.classList.toggle('dark-mode', isDark);
         localStorage.setItem('portfolio-theme', isDark ? 'dark' : 'light');
       });
+
+      /* ---------- Font size dropdown ---------- */
+      var fontSelect = document.getElementById('fontSize-select');
+      var storedFont = localStorage.getItem('portfolio-fontSize');
+
+      if (storedFont) {
+        fontSelect.value = storedFont;
+        applyFontSize(storedFont);
+      }
+
+      fontSelect.addEventListener('change', function () {
+        var value = this.value;
+        applyFontSize(value);
+        localStorage.setItem('portfolio-fontSize', value);
+      });
+
+      function applyFontSize(value) {
+        var root = document.documentElement;
+        if (value === 'small') root.style.fontSize = '13px';
+        else if (value === 'large') root.style.fontSize = '18px';
+        else if (value === 'huge') root.style.fontSize = '22px';
+        else root.style.fontSize = '16px';
+      }
 
       /* ---------- Footer year ---------- */
       document.getElementById('footer-year').textContent = new Date().getFullYear();

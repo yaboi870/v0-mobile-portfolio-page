@@ -103,21 +103,26 @@ a:hover {
   color: var(--accent-main);
 }
 
-/* Theme toggle button */
-.theme-toggle {
-  background: var(--accent-main);
-  border: none;
+/* Settings cog button (matches project pages .settings-btn) */
+.settings-btn {
+  background-color: var(--accent-main);
   color: #ffffff;
-  border-radius: 6px;
-  padding: 0.4rem 0.75rem;
-  font-size: 0.85rem;
+  border: none;
+  border-radius: 3px;
   cursor: pointer;
+  padding: 5px 10px;
+  font-size: 1.1rem;
+  margin-left: 4px;
   transition: background-color 0.2s ease;
-  font-weight: 600;
 }
 
-.theme-toggle:hover {
-  background: var(--accent-dark);
+.settings-btn:hover {
+  background-color: var(--accent-dark);
+}
+
+.settings-btn:focus-visible {
+  outline: 3px solid var(--accent-main);
+  outline-offset: 2px;
 }
 
 /* ===== Hero / Intro ===== */
@@ -146,30 +151,43 @@ a:hover {
   opacity: 0.9;
 }
 
-.hero-contact {
+/* ===== Contact section ===== */
+.contact-section {
+  padding: 0 1rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.contact-card {
+  background-color: var(--card-bg);
+  border: 2px solid var(--card-border);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 0.5rem;
-  margin-top: 1rem;
 }
 
-.hero-contact a {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  font-size: 0.85rem;
-  padding: 0.4rem 0.75rem;
-  border-radius: 6px;
-  background-color: var(--accent-main);
-  color: #ffffff;
-  text-decoration: none;
-  font-weight: 600;
-  transition: background-color 0.2s ease;
+.contact-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  font-size: 0.9rem;
+  word-break: break-word;
 }
 
-.hero-contact a:hover {
-  background-color: var(--accent-dark);
-  color: #ffffff;
+.contact-label {
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  opacity: 0.7;
+}
+
+.contact-section .section-heading {
+  padding-left: 0;
 }
 
 /* ===== Section heading ===== */
@@ -324,6 +342,94 @@ a:hover {
   opacity: 0.7;
 }
 
+/* ===== Settings Window (matches project page .window style) ===== */
+.window {
+  position: fixed;
+  width: 260px;
+  background-color: var(--card-bg);
+  border: 2px solid var(--card-border);
+  border-radius: 6px;
+  box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+  top: 3.5rem;
+  right: 1rem;
+  z-index: 200;
+  overflow: auto;
+  display: none;
+}
+
+body.dark-mode .window {
+  background-color: var(--text-dark);
+  color: var(--highlight);
+}
+
+.window-header {
+  background-color: var(--accent-main);
+  padding: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--accent-dark);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.9rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+body.dark-mode .window-header {
+  background-color: var(--accent-main);
+  border-bottom-color: var(--accent-main);
+}
+
+.close-btn {
+  background-color: var(--accent-dark);
+  color: #ffffff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  padding: 2px 6px;
+  margin-left: 4px;
+  font-size: 0.85rem;
+  transition: background-color 0.2s ease;
+}
+
+.close-btn:hover {
+  background-color: var(--text-dark);
+}
+
+.window-content {
+  padding: 1rem;
+}
+
+.settings-text {
+  color: var(--text-active);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.settings-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.settings-select {
+  padding: 0.35rem 0.5rem;
+  border-radius: 4px;
+  border: 2px solid var(--card-border);
+  background-color: var(--bg-main-active);
+  color: var(--text-active);
+  font-size: 0.85rem;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.settings-select:focus-visible {
+  outline: 3px solid var(--accent-main);
+  outline-offset: 2px;
+}
+
 /* ===== Accessibility ===== */
 .sr-only {
   position: absolute;
@@ -343,7 +449,7 @@ a:hover {
   outline-offset: 2px;
 }
 
-.theme-toggle:focus-visible {
+.close-btn:focus-visible {
   outline: 3px solid var(--accent-main);
   outline-offset: 2px;
 }
