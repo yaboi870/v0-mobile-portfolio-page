@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Luke Alexander — Portfolio</title>
+  <meta name="description" content="Portfolio of Luke Alexander — student, developer, and maker." />
+  <link rel="stylesheet" href="portfolio.css" />
+</head>
+<body>
+
+  <!-- ===== Header ===== -->
+  <header class="header" role="banner">
+    <div class="header-inner">
+      <a href="https://luke-alexander.uk/" class="header-title" aria-label="Back to main site">
+        luke-alexander.uk
+      </a>
+      <button
+        class="theme-toggle"
+        id="theme-toggle"
+        type="button"
+        aria-label="Toggle dark mode"
+      >
+        Dark Mode
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ===== Hero ===== -->
+    <section class="hero" aria-label="Introduction">
+      <h1 class="hero-name">
+        Luke <span class="hero-accent">Alexander</span>
+      </h1>
+      <p class="hero-description">
+        17-year-old student at Down High School studying Computer Science, Physics, and Technology &amp; Design at A-level. I build home servers, create mathematical animations, make jam, and design games. This is a collection of my projects.
+      </p>
+      <div class="hero-contact">
+        <a href="mailto:lukeaustenalexander@gmail.com" aria-label="Send email">
+          Email
+        </a>
+        <a href="https://luke-alexander.uk/" aria-label="Visit main desktop site">
+          Desktop Site
+        </a>
+      </div>
+    </section>
+
+    <!-- ===== Projects ===== -->
+    <h2 class="section-heading">Projects</h2>
+
+    <div class="tile-grid" id="project-grid" aria-label="Project list">
+      <!-- Tiles are injected from projects.json -->
+      <p class="loading">Loading projects...</p>
+    </div>
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer" role="contentinfo">
+    <p>Luke Alexander &mdash; <span id="footer-year"></span></p>
+  </footer>
+
+  <!-- ===== Script: load JSON + dark mode ===== -->
+  <script>
+    (function () {
+      /* ---------- Dark mode ---------- */
+      var toggle = document.getElementById('theme-toggle');
+      var storedTheme = localStorage.getItem('portfolio-theme');
+
+      if (storedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        toggle.textContent = 'Light Mode';
+      }
+
+      toggle.addEventListener('click', function () {
+        var isDark = document.body.classList.toggle('dark-mode');
+        toggle.textContent = isDark ? 'Light Mode' : 'Dark Mode';
+        localStorage.setItem('portfolio-theme', isDark ? 'dark' : 'light');
+      });
+
+      /* ---------- Footer year ---------- */
+      document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+      /* ---------- Load projects from JSON ---------- */
+      var grid = document.getElementById('project-grid');
+
+      fetch('projects.json')
+        .then(function (res) {
+          if (!res.ok) throw new Error('Failed to load projects');
+          return res.json();
+        })
+        .then(function (projects) {
+          grid.innerHTML = '';
+
+          projects.forEach(function (project) {
+            var tile = document.createElement('a');
+            tile.href = project.url;
+            tile.className = 'tile';
+            tile.setAttribute('role', 'article');
+            tile.setAttribute('aria-label', project.title);
+            tile.target = '_blank';
+            tile.rel = 'noopener noreferrer';
+
+            /* Tags HTML */
+            var tagsHTML = '';
+            if (project.tags && project.tags.length) {
+              tagsHTML = '<div class="tile-tags">';
+              project.tags.forEach(function (tag) {
+                tagsHTML += '<span class="tile-tag">' + tag + '</span>';
+              });
+              tagsHTML += '</div>';
+            }
+
+            tile.innerHTML =
+              '<div class="tile-header">' +
+                '<span class="tile-icon" aria-hidden="true">' + project.icon + '</span>' +
+                '<span class="tile-title">' + project.title + '</span>' +
+              '</div>' +
+              '<div class="tile-body">' +
+                '<p class="tile-description">' + project.description + '</p>' +
+                tagsHTML +
+                '<span class="tile-link-hint">View project <span class="arrow" aria-hidden="true">&rarr;</span></span>' +
+              '</div>';
+
+            grid.appendChild(tile);
+          });
+        })
+        .catch(function (err) {
+          grid.innerHTML = '<p class="loading">Could not load projects. Please try again later.</p>';
+          console.error(err);
+        });
+    })();
+  </script>
+
+</body>
+</html>

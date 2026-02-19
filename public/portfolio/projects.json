@@ -1,0 +1,34 @@
+[
+  {
+    "id": "nas",
+    "title": "Project - NAS",
+    "icon": "&#8623;",
+    "description": "A Raspberry Pi 4 used as a NAS and home server, hosting websites, media servers (Plex, Jellyfin), Nextcloud, and more — all accessible via Cloudflare tunnels.",
+    "tags": ["Raspberry Pi", "Networking", "Self-Hosted"],
+    "url": "https://luke-alexander.uk/Project-Nas/"
+  },
+  {
+    "id": "manim",
+    "title": "Project - Manim",
+    "icon": "&#x1D4DC;",
+    "description": "Exploring the Manim Python library for mathematical animations, creating visualisations of sine wave interference, game logos, and SVG transformations.",
+    "tags": ["Python", "Animation", "Maths"],
+    "url": "https://luke-alexander.uk/Project-Manim/"
+  },
+  {
+    "id": "jam",
+    "title": "Project - Jam",
+    "icon": "&#10086;",
+    "description": "A seasonal project making and selling homemade blackberry jam using an honesty box stand, custom labels from a thermal printer, and recycled jars.",
+    "tags": ["Crafting", "Design", "Entrepreneurship"],
+    "url": "https://luke-alexander.uk/Project-Jam/"
+  },
+  {
+    "id": "dice",
+    "title": "Project - Dice",
+    "icon": "&#9858;",
+    "description": "A dice-based project currently in development. Full write-up and download link coming soon.",
+    "tags": ["Game", "In Progress"],
+    "url": "https://luke-alexander.uk/Project-Dice/"
+  }
+]
