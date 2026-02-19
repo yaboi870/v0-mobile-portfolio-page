@@ -90,6 +90,10 @@
         <input type="checkbox" id="theme-toggle" />
         Dark Mode
       </label>
+      <label class="settings-text" style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem;">
+        <input type="checkbox" id="borders-toggle" />
+        Disable Window Borders
+      </label>
       <div class="settings-row" style="margin-top: 0.75rem;">
         <label class="settings-text" for="fontSize-select">Font Size</label>
         <select id="fontSize-select" class="settings-select">
@@ -140,6 +144,21 @@
         var isDark = this.checked;
         document.body.classList.toggle('dark-mode', isDark);
         localStorage.setItem('portfolio-theme', isDark ? 'dark' : 'light');
+      });
+
+      /* ---------- Disable window borders (checkbox) ---------- */
+      var bordersToggle = document.getElementById('borders-toggle');
+      var storedBorders = localStorage.getItem('portfolio-noBorders');
+
+      if (storedBorders === 'true') {
+        document.body.classList.add('no-borders');
+        bordersToggle.checked = true;
+      }
+
+      bordersToggle.addEventListener('change', function () {
+        var disabled = this.checked;
+        document.body.classList.toggle('no-borders', disabled);
+        localStorage.setItem('portfolio-noBorders', disabled ? 'true' : 'false');
       });
 
       /* ---------- Font size dropdown ---------- */

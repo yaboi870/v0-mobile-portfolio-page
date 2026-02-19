@@ -467,6 +467,21 @@ body.dark-mode .window-header {
   outline-offset: 2px;
 }
 
+/* ===== Disable Window Borders mode ===== */
+body.no-borders .contact-card {
+  border: 2px solid transparent;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+body.no-borders .tile {
+  border: 2px solid transparent;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+body.no-borders .tile:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
 /* ===== Accessibility ===== */
 .sr-only {
   position: absolute;
